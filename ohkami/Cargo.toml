@@ -37,7 +37,7 @@ sha2          = { version = "0.10", default-features = false }
 
 
 [features]
-default       = ["testing"]
+#default       = ["testing"]
 
 rt_tokio      = ["dep:tokio"]
 rt_async-std  = ["dep:async-std"]
@@ -54,13 +54,13 @@ DEBUG = [
     "tokio?/rt-multi-thread",
     "async-std?/attributes",
 ]
-#default = [
-#    "nightly",
-#    "testing",
-#    "sse",
-#    #"websocket",
-#    "rt_tokio",
-#    #"rt_async-std",
-#    #"rt_worker",
-#    "DEBUG",
-#]
+default = [
+    "nightly",
+    "testing",
+    "sse",
+    #"websocket",
+    "rt_tokio",
+    #"rt_async-std",
+    #"rt_worker",
+    "DEBUG",
+]

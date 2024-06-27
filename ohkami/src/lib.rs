@@ -62,8 +62,19 @@ mod __rt__ {
     #[cfg(feature="rt_async-std")]
     pub(crate) use async_std::io::WriteExt as AsyncWriter;
 
+    #[cfg(feature="rt_tokio")]
+    pub(crate) use tokio::sync::watch::{Sender, Receiver};
     #[cfg(feature="rt_async-std")]
-    pub(crate) use async_std::stream::StreamExt;
+    pub(crate) use async_std::channel::{Sender, Receiver};
+    #[cfg(any(feature="rt_tokio",feature="rt_async-std"))]
+    pub(crate) fn channel() -> (Sender<()>, Receiver<()>) {
+        #[cfg(feature="rt_tokio")] {
+            tokio::sync::watch::channel(())
+        }
+        #[cfg(feature="rt_async-std")] {
+            async_std::channel::bounded(1)
+        }
+    }
 }
 
 
